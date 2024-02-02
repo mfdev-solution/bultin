@@ -1,5 +1,7 @@
 public class Test {
     public static void main(String[] args) {
-        System.out.println("Une matiere : " + String.valueOf(Matiere.Anglais));
+        for (Matiere iterable_element : Matiere.values()) {
+            System.out.println("Matiere : " + String.valueOf(iterable_element));
+        }
     }
 }
