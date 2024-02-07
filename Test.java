@@ -1,7 +1,7 @@
 public class Test {
     public static void main(String[] args) {
-        for (Matiere iterable_element : Matiere.values()) {
-            System.out.println("Matiere : " + String.valueOf(iterable_element));
-        }
+        Eleve eleve = Services.renseignerEleve(new Eleve());
+        System.out.println(eleve.toString());
+
     }
 }
