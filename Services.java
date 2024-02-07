@@ -1,20 +1,16 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Services {
     private static Scanner scanner = new Scanner(System.in);
 
-    public static Eleve renseignerEleve(Eleve eleve) {
+    public  Eleve renseignerEleve(Eleve eleve) {
         eleve.firstName = validerEntrees("Veillez entrez le prennom");
         eleve.lastName = validerEntrees("Veillez entrez le nom");
         eleve.niveau.classe = getClasse();
         eleve.niveau.serie = getSerie();
-        eleve.matieres = attribuerMatieres(eleve.niveau);
+        eleve.matieres = this.attribuerMatieres(eleve.niveau);
         return eleve;
     }
 
@@ -24,7 +20,6 @@ public class Services {
             System.out.println(message);
             champs = scanner.nextLine();
         } while (champs != null && champs.length() < 0);
-
         return champs;
     }
 
@@ -38,7 +33,6 @@ public class Services {
             i++;
         }
         int choix = scanner.nextInt();
-
         return Classe.valueOf(niveaux[choix]);
     }
 
@@ -55,7 +49,7 @@ public class Services {
         return Serie.valueOf(series[choix]);
     }
 
-    private static Map<NMatiere, Double> attribuerMatieres(Niveau niveau) {
+    private  Map<NMatiere, Double> attribuerMatieres(Niveau niveau) {
         Map<NMatiere,Double> attribuer = new HashMap<NMatiere, Double>();
         switch (niveau.classe.toString()) {
             case "sisieme", "cinqueme":
@@ -83,7 +77,6 @@ public class Services {
                 if (niveau.serie.equals(Serie.A)) {
                     attribuer.put(new NMatiere(Matiere.Arabe ), 2.0);
                     System.out.println("test");
-
                 }
                 if (niveau.serie.equals(Serie.ES)) {
                     attribuer.put(new NMatiere(Matiere.Espagnol ), 2.0);
@@ -119,7 +112,7 @@ public class Services {
 
     public Devoir renseignerDevoir() {
         int[] numDevoirs = new int[3];
-        TypeDevoir[] typeDevoirs = new TypeDevoir[2];
+        TypeDevoir[] typeDevoirs = new TypeDevoir[3];
         System.out.println("Choisir le type de devoir");
         int i = 1;
         for (TypeDevoir iterable_element : TypeDevoir.values()) {
@@ -129,13 +122,16 @@ public class Services {
         }
         int typeChoice = scanner.nextInt();
         System.out.println("Choisir le numero du devoir");
-        for (int index = 0; index < numDevoirs.length; index++) {
-            numDevoirs[index] = index;
-            System.out.println(index + " : Devoir N°"+index+1 );
+        for (int index = 1; index < numDevoirs.length+1; index++) {
+            numDevoirs[index-1] = index;
+            System.out.println(index + " : Devoir N°"+(index) );
         }
         int choix = scanner.nextInt();
         System.out.println("Entrer la note");
         double note = scanner.nextDouble();
-        return new Devoir(typeDevoirs[typeChoice], note, numDevoirs[choix]);
+        return new Devoir(typeDevoirs[typeChoice], note, numDevoirs[choix-1]);
     }
+
+
+
 }
