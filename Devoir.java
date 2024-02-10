@@ -12,4 +12,7 @@ public class Devoir {
         this.note = note;
         this.numDevoir = numDevoir;
     }
+    public String toString() {
+        return String.valueOf(type)+" "+note + " " + numDevoir+ "\n";
+    }
 }

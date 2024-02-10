@@ -17,4 +17,13 @@ public class NMatiere {
     public NMatiere(Matiere nomMatiere) {
         this.nomMatiere = nomMatiere;
     }
+    public String toString() {
+        String nmatieres = String.valueOf(nomMatiere);
+
+        for (Devoir devoir : devoirs) {
+            nmatieres += " " + devoir.toString();
+        }
+
+        return nmatieres;
+    }
 }

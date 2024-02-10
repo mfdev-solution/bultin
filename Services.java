@@ -1,11 +1,12 @@
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Services {
-    private static Scanner scanner = new Scanner(System.in);
 
-    public  Eleve renseignerEleve(Eleve eleve) {
+    private static Scanner scanner = new Scanner(System.in);
+    public Eleve renseignerEleve(Eleve eleve) {
         eleve.firstName = validerEntrees("Veillez entrez le prennom");
         eleve.lastName = validerEntrees("Veillez entrez le nom");
         eleve.niveau.classe = getClasse();
@@ -49,11 +50,11 @@ public class Services {
         return Serie.valueOf(series[choix]);
     }
 
-    private  Map<NMatiere, Double> attribuerMatieres(Niveau niveau) {
-        Map<NMatiere,Double> attribuer = new HashMap<NMatiere, Double>();
+    private Map<NMatiere, Double> attribuerMatieres(Niveau niveau) {
+        Map<NMatiere, Double> attribuer = new HashMap<NMatiere, Double>();
         switch (niveau.classe.toString()) {
             case "sisieme", "cinqueme":
-                attribuer.put(new NMatiere(Matiere.Anglais),2.0);
+                attribuer.put(new NMatiere(Matiere.Anglais), 2.0);
                 attribuer.put(new NMatiere(Matiere.Mathematique), 3.0);
                 attribuer.put(new NMatiere(Matiere.SVT), 2.0);
                 attribuer.put(new NMatiere(Matiere.HG), 2.0);
@@ -62,76 +63,137 @@ public class Services {
                 attribuer.put(new NMatiere(Matiere.Dictee), 1.0);
                 attribuer.put(new NMatiere(Matiere.TSQ), 1.0);
                 attribuer.put(new NMatiere(Matiere.Redaction), 2.0);
-                return attribuer;
+                break;
             case "quatrieme", "troisieme":
-                attribuer.put(new NMatiere(Matiere.Anglais ), 2.0);
-                attribuer.put(new NMatiere(Matiere.Mathematique ), 3.0);
-                attribuer.put(new NMatiere(Matiere.SVT ), 2.0);
-                attribuer.put(new NMatiere(Matiere.HG ), 2.0);
-                attribuer.put(new NMatiere(Matiere.EC ), 1.0);
-                attribuer.put(new NMatiere(Matiere.EPS ), 2.0);
-                attribuer.put(new NMatiere(Matiere.Dictee ), 1.0);
-                attribuer.put(new NMatiere(Matiere.TSQ ), 1.0);
-                attribuer.put(new NMatiere(Matiere.Redaction ), 2.0);
-                attribuer.put(new NMatiere(Matiere.Science_Physique ), 2.0);
+                attribuer.put(new NMatiere(Matiere.Anglais), 2.0);
+                attribuer.put(new NMatiere(Matiere.Mathematique), 3.0);
+                attribuer.put(new NMatiere(Matiere.SVT), 2.0);
+                attribuer.put(new NMatiere(Matiere.HG), 2.0);
+                attribuer.put(new NMatiere(Matiere.EC), 1.0);
+                attribuer.put(new NMatiere(Matiere.EPS), 2.0);
+                attribuer.put(new NMatiere(Matiere.Dictee), 1.0);
+                attribuer.put(new NMatiere(Matiere.TSQ), 1.0);
+                attribuer.put(new NMatiere(Matiere.Redaction), 2.0);
+                attribuer.put(new NMatiere(Matiere.Science_Physique), 2.0);
+                attribuer.put(new NMatiere(Matiere.Music), 1.0);
                 if (niveau.serie.equals(Serie.A)) {
-                    attribuer.put(new NMatiere(Matiere.Arabe ), 2.0);
-                    System.out.println("test");
+                    attribuer.put(new NMatiere(Matiere.Arabe), 2.0);
                 }
                 if (niveau.serie.equals(Serie.ES)) {
-                    attribuer.put(new NMatiere(Matiere.Espagnol ), 2.0);
+                    attribuer.put(new NMatiere(Matiere.Espagnol), 2.0);
                 }
-                return attribuer;
+                break;
             case "seconde":
-                attribuer.put(new NMatiere(Matiere.EPS ), 2.0);
+                attribuer.put(new NMatiere(Matiere.EPS), 1.0);
                 if (niveau.serie.equals(Serie.S)) {
-                    attribuer.put(new NMatiere(Matiere.Mathematique ), 5.0);
-                    attribuer.put(new NMatiere(Matiere.SVT ), 5.0);
-                    attribuer.put(new NMatiere(Matiere.Anglais ), 2.0);
-                    attribuer.put(new NMatiere(Matiere.HG ), 2.0);
-                    attribuer.put(new NMatiere(Matiere.Science_Physique ), 5.0);
-                    attribuer.put(new NMatiere(Matiere.Francais ), 3.0);
-                    attribuer.put(new NMatiere(Matiere.Arabe ), 2.0);
+                    attribuer.put(new NMatiere(Matiere.Mathematique), 5.0);
+                    attribuer.put(new NMatiere(Matiere.SVT), 5.0);
+                    attribuer.put(new NMatiere(Matiere.Anglais), 2.0);
+                    attribuer.put(new NMatiere(Matiere.HG), 2.0);
+                    attribuer.put(new NMatiere(Matiere.Science_Physique), 5.0);
+                    attribuer.put(new NMatiere(Matiere.Francais), 3.0);
+                    attribuer.put(new NMatiere(Matiere.Arabe), 2.0);
                 } else if (niveau.serie.equals(Serie.L)) {
-                    attribuer.put(new NMatiere(Matiere.SVT ), 2.0);
-                    attribuer.put(new NMatiere(Matiere.Anglais ), 2.0);
-                    attribuer.put(new NMatiere(Matiere.HG ), 4.0);
-                    attribuer.put(new NMatiere(Matiere.Science_Physique ), 2.0);
-                    attribuer.put(new NMatiere(Matiere.Francais ), 4.0);
-                    attribuer.put(new NMatiere(Matiere.Arabe ), 2.0);
+                    attribuer.put(new NMatiere(Matiere.SVT), 2.0);
+                    attribuer.put(new NMatiere(Matiere.Anglais), 2.0);
+                    attribuer.put(new NMatiere(Matiere.HG), 4.0);
+                    attribuer.put(new NMatiere(Matiere.Science_Physique), 2.0);
+                    attribuer.put(new NMatiere(Matiere.Francais), 4.0);
+                    attribuer.put(new NMatiere(Matiere.Arabe), 2.0);
                 }
-                return attribuer;
+                break;
             case "premiere", "terminal":
-                attribuer.put(new NMatiere(Matiere.EPS ), 2.0);
-                return attribuer;
+                attribuer.put(new NMatiere(Matiere.EPS), 2.0);
+                break;
             default:
                 break;
         }
-        return null;
+        return reseignerTousDevoirs(attribuer);
     }
 
-    public Devoir renseignerDevoir() {
-        int[] numDevoirs = new int[3];
-        TypeDevoir[] typeDevoirs = new TypeDevoir[3];
+    private Devoir renseignerDevoir() {
+        int[] numDevoirs = new int[Consts.NOMBRE_DEVOIRS];
+        TypeDevoir[] typeDevoirs = new TypeDevoir[Consts.NOMBRE_TYPES_DEVOIRS];
         System.out.println("Choisir le type de devoir");
         int i = 1;
         for (TypeDevoir iterable_element : TypeDevoir.values()) {
-            typeDevoirs[i] = iterable_element;
-            System.out.println(i+" : pour "+String.valueOf(iterable_element));
+            typeDevoirs[i - 1] = iterable_element;
+            System.out.println(i + " : pour " + String.valueOf(iterable_element));
             i++;
         }
         int typeChoice = scanner.nextInt();
-        System.out.println("Choisir le numero du devoir");
-        for (int index = 1; index < numDevoirs.length+1; index++) {
-            numDevoirs[index-1] = index;
-            System.out.println(index + " : Devoir N°"+(index) );
+        if (typeDevoirs[typeChoice - 1].equals(TypeDevoir.devoir)) {
+            System.out.println("Choisir le numero du devoir");
+            for (int index = 1; index < numDevoirs.length + 1; index++) {
+                numDevoirs[index - 1] = index;
+                System.out.println(index + " : Devoir N°" + (index));
+            }
+        }
+        if (typeDevoirs[typeChoice - 1].equals(TypeDevoir.composition)) {
+            System.out.println("Choisir le numero du semestre");
+            for (int index = 1; index < Consts.NOMBRE_COMPOSITIONS + 1; index++) {
+                numDevoirs[index - 1] = index;
+                System.out.println(index + " : Composition N°" + (index));
+            }
         }
         int choix = scanner.nextInt();
         System.out.println("Entrer la note");
         double note = scanner.nextDouble();
-        return new Devoir(typeDevoirs[typeChoice], note, numDevoirs[choix-1]);
+        return new Devoir(typeDevoirs[typeChoice - 1], note, numDevoirs[choix - 1]);
     }
 
+    private NMatiere renseignerNMatier(NMatiere nMatiere) {
 
+        System.out.println("Matiere : " + String.valueOf(nMatiere.nomMatiere));
+        int i = 1;
+        boolean rep;
+        while (i < Consts.NOMBRE_DEVOIRS + 1) {
+            rep = yesOrNo("Voulez-vous ajouter un devoir");
+            if (!rep)
+                break;
+            nMatiere.devoirs.add(renseignerDevoir());
+            i++;
+        }
+        return nMatiere;
+    }
+
+    public Map<NMatiere, Double> reseignerTousDevoirs(Map<NMatiere, Double> matiersMap) {
+
+        matiersMap.forEach((nMat, v) -> nMat = renseignerNMatier(nMat));
+        return matiersMap;
+    }
+
+    public double calculateAverage(Map<NMatiere, Double> matieres) {
+        double totalCoef = 0.0;
+        double totalPoints = 0.0;
+        for (NMatiere nMatiere : matieres.keySet()) {
+            totalCoef += matieres.get(nMatiere);
+            totalPoints += (caculateAverageByDev(nMatiere.devoirs) * matieres.get(nMatiere));
+        }
+        return totalPoints / totalCoef;
+    }
+
+    private double caculateAverageByDev(List<Devoir> devoirs) {
+        double ccAverage = 0.0;
+        double dsAverage = 0.0;
+        for (Devoir dev : devoirs) {
+            if (dev.type.equals(TypeDevoir.devoir))
+                ccAverage += dev.note;
+            if (dev.type.equals(TypeDevoir.composition))
+                dsAverage += dev.note;
+        }
+        ccAverage /= 2;
+        return (ccAverage + dsAverage) / 2;
+    }
+
+    private boolean yesOrNo(String question) {
+        int answer = 0;
+        do {
+            System.out.println(question);
+            System.out.println("1 : OUI\n2 : NON");
+            answer = scanner.nextInt();
+        } while (answer != 1 && answer != 2);
+        return answer == 1;
+    }
 
 }
