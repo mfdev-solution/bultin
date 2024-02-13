@@ -1,11 +1,13 @@
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Services {
 
     private static Scanner scanner = new Scanner(System.in);
+    Random rand = new Random();
     public Eleve renseignerEleve(Eleve eleve) {
         eleve.firstName = validerEntrees("Veillez entrez le prennom");
         eleve.lastName = validerEntrees("Veillez entrez le nom");
@@ -35,6 +37,11 @@ public class Services {
         }
         int choix = scanner.nextInt();
         return Classe.valueOf(niveaux[choix]);
+    }
+    public Classe getRandClasse(){
+        Classe[] randClasse = Classe.values();
+        int randomNumber = rand.nextInt(randClasse.length);
+        return randClasse[randomNumber];
     }
 
     private static Serie getSerie() {
@@ -195,5 +202,11 @@ public class Services {
         } while (answer != 1 && answer != 2);
         return answer == 1;
     }
+    public String randomWord(String[] words){
+        
+        int randomNumber = rand.nextInt(words.length);
+        return words[randomNumber];
+    }
+
 
 }
