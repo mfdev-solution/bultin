@@ -9,7 +9,7 @@ public class Consts {
                                                                                                     // serie L et S en
                                                                                                     // classe de seconde
     public static final String[] PRENOMS = { "Mouhamed", "Moustapha", "Ibrahime", "Ousmane", "Hadja", "Maty", "Mareme",
-            "Sokhna", "Abdoulaye", "Dame", "Ousseynou", "Dior", "Maguette" };
-    public static final String[] NOMS = { "Fall", "Diop", "Ndiaye", "Gaye", "Diouf", "Dionne", "Gueye", "Mbengue",
+            "Sokhna", "Abdoulaye", "Dame", "Ousseynou", "Dior", "Maguette","Codou" };
+    public static final String[] NOMS = { "Fall", "Diop", "Ndiaye", "Gaye", "Diouf", "Dionne", "Gueye", "Mbengue","Thioune",
             "Bousso", "Athie" };
 }

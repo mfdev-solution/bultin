@@ -26,7 +26,7 @@ public class Eleve {
                     + ") \n";
         }
         newMatieres += " ) ";
-        return firstName + " " + lastName + " " + String.valueOf(niveau.classe) + " " + niveau.serie  + " " + newMatieres + "\nMoyenne générale : " + moyenne;
+        return firstName + " " + lastName + " " + String.valueOf(niveau.classe) + " " + niveau.serie  + " " + newMatieres + "\nMoyenne générale : " + moyenne +"\n";
     }
 
     private String afficherDevoir(List<Devoir> devoirs) {

@@ -16,7 +16,7 @@ public class Services {
         eleve.niveau.classe = getClasse();
         eleve.niveau.serie = getSerie();
         eleve.matieres = this.attribuerMatieres(eleve.niveau);
-        eleve.moyenne =  this.calculateAverage(eleve.matieres);
+        eleve.moyenne = this.calculateAverage(eleve.matieres);
         return eleve;
     }
 
@@ -26,8 +26,45 @@ public class Services {
         eleve.niveau.classe = this.getRandClasse();
         eleve.niveau.serie = this.getRandomSerie(eleve.niveau.classe);
         eleve.matieres = this.attribuerMatieres(eleve.niveau);
-        eleve.moyenne =  this.calculateAverage(eleve.matieres);
+        eleve.moyenne = this.calculateAverage(eleve.matieres);
         return eleve;
+    }
+
+    public Eleve renseigenrRandomEleve_v2(Eleve eleve) {
+        eleve.firstName = this.randomWord(Consts.PRENOMS);
+        eleve.lastName = this.randomWord(Consts.NOMS);
+        // eleve.niveau.classe = this.getRandClasse();
+        // eleve.niveau.serie = this.getRandomSerie(eleve.niveau.classe);
+        eleve.matieres = this.attribuerMatieres(eleve.niveau);
+        eleve.moyenne = this.calculateAverage(eleve.matieres);
+        return eleve;
+    }
+
+    public NClasse creerClasse(NClasse classe) {
+        classe.nomClasse = this.getRandClasse();
+        classe.serieClasse = this.getRandomSerie(classe.nomClasse);
+        classe.effectif = rand.nextInt(10) + 10;
+        // List<Eleve> eleveList = new ArrayList<Eleve>();
+
+        classe.eleves = creerListEleves(new ArrayList<Eleve>(), classe);
+
+        return classe;
+
+    }
+
+    public List<Eleve> creerListEleves(List<Eleve> eleList, NClasse classe) {
+        for (int i = 0; i < classe.effectif; i++) {
+            Eleve eleve = new Eleve();
+            eleve.firstName = this.randomWord(Consts.PRENOMS);
+            eleve.lastName = this.randomWord(Consts.NOMS);
+            eleve.niveau.classe = classe.nomClasse;
+            eleve.niveau.serie = classe.serieClasse;
+            eleve.matieres = this.attribuerMatieres(eleve.niveau);
+            eleve.moyenne = this.calculateAverage(eleve.matieres);
+            eleList.add(eleve);
+        }
+        return eleList;
+
     }
 
     private static String validerEntrees(String message) {
@@ -172,7 +209,7 @@ public class Services {
 
     private Map<NMatiere, Double> renseignerTousDevoirRandom(Map<NMatiere, Double> attribuer) {
 
-        attribuer.forEach((nMatiere, coef) ->{
+        attribuer.forEach((nMatiere, coef) -> {
             List<Devoir> devoirs = new ArrayList<Devoir>();
             devoirs.add(new Devoir(TypeDevoir.devoir, rand.nextInt(20), 1));
             devoirs.add(new Devoir(TypeDevoir.devoir, rand.nextInt(20), 2));
