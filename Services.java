@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,12 +9,24 @@ public class Services {
 
     private static Scanner scanner = new Scanner(System.in);
     Random rand = new Random();
+
     public Eleve renseignerEleve(Eleve eleve) {
         eleve.firstName = validerEntrees("Veillez entrez le prennom");
         eleve.lastName = validerEntrees("Veillez entrez le nom");
         eleve.niveau.classe = getClasse();
         eleve.niveau.serie = getSerie();
         eleve.matieres = this.attribuerMatieres(eleve.niveau);
+        eleve.moyenne =  this.calculateAverage(eleve.matieres);
+        return eleve;
+    }
+
+    public Eleve renseigenrRandomEleve(Eleve eleve) {
+        eleve.firstName = this.randomWord(Consts.PRENOMS);
+        eleve.lastName = this.randomWord(Consts.NOMS);
+        eleve.niveau.classe = this.getRandClasse();
+        eleve.niveau.serie = this.getRandomSerie(eleve.niveau.classe);
+        eleve.matieres = this.attribuerMatieres(eleve.niveau);
+        eleve.moyenne =  this.calculateAverage(eleve.matieres);
         return eleve;
     }
 
@@ -38,10 +51,48 @@ public class Services {
         int choix = scanner.nextInt();
         return Classe.valueOf(niveaux[choix]);
     }
-    public Classe getRandClasse(){
+
+    public Classe getRandClasse() {
         Classe[] randClasse = Classe.values();
         int randomNumber = rand.nextInt(randClasse.length);
         return randClasse[randomNumber];
+    }
+
+    public Serie getRandomSerie(Classe classe) {
+        Serie[] randSerie;
+        switch (String.valueOf(classe)) {
+            case "sisieme", "cinqueme":
+                return Serie.valueOf(String.valueOf(CollegeSeries.NONE));
+            case "quatrieme", "troisieme":
+                randSerie = new Serie[Consts.NOMBRE_SERIE_4_3];
+                int i = 0;
+                for (CollegeSeries series : CollegeSeries.values()) {
+                    if (series.equals(CollegeSeries.NONE))
+                        continue;
+                    randSerie[i] = Serie.valueOf(String.valueOf(series));
+                    i++;
+                }
+                return randSerie[rand.nextInt(randSerie.length)];
+
+            case "seconde":
+                randSerie = new Serie[Consts.NOMBRE_SERIE_SECOND];
+                randSerie[0] = Serie.valueOf(String.valueOf(SecondaireSeries.L));
+                randSerie[1] = Serie.valueOf(String.valueOf(SecondaireSeries.S));
+                return randSerie[rand.nextInt(randSerie.length)];
+            case "premiere", "terminal":
+                randSerie = new Serie[Consts.NOMBRE_SERIES_PREMIERE_TERMINAL];
+                i = 0;
+                for (SecondaireSeries serie : SecondaireSeries.values()) {
+                    if (serie.equals(SecondaireSeries.L) || serie.equals(SecondaireSeries.S))
+                        continue;
+                    randSerie[i] = Serie.valueOf(String.valueOf(serie));
+                    i++;
+                }
+                return randSerie[rand.nextInt(randSerie.length)];
+            default:
+                break;
+        }
+        return null;
     }
 
     private static Serie getSerie() {
@@ -115,7 +166,20 @@ public class Services {
             default:
                 break;
         }
-        return reseignerTousDevoirs(attribuer);
+        // return reseignerTousDevoirs(attribuer);
+        return renseignerTousDevoirRandom(attribuer);
+    }
+
+    private Map<NMatiere, Double> renseignerTousDevoirRandom(Map<NMatiere, Double> attribuer) {
+
+        attribuer.forEach((nMatiere, coef) ->{
+            List<Devoir> devoirs = new ArrayList<Devoir>();
+            devoirs.add(new Devoir(TypeDevoir.devoir, rand.nextInt(20), 1));
+            devoirs.add(new Devoir(TypeDevoir.devoir, rand.nextInt(20), 2));
+            devoirs.add(new Devoir(TypeDevoir.composition, rand.nextInt(20), 1));
+            nMatiere.devoirs = devoirs;
+        });
+        return attribuer;
     }
 
     private Devoir renseignerDevoir() {
@@ -202,11 +266,11 @@ public class Services {
         } while (answer != 1 && answer != 2);
         return answer == 1;
     }
-    public String randomWord(String[] words){
-        
+
+    public String randomWord(String[] words) {
+
         int randomNumber = rand.nextInt(words.length);
         return words[randomNumber];
     }
-
 
 }
